@@ -1,0 +1,20 @@
+{
+    "pythonVersion": "3.12",
+    "typeCheckingMode": "strict",
+    "deprecateTypingAliases": true,
+    "include": [
+        "src/**/*.py",
+        "examples/**/*.py",
+        "tests/**/*.py",
+    ],
+    "stubPath": ".typings",
+    // -------------------------------------------------------------------- //
+    // TODO: MuJoCo
+    "reportArgumentType": false,
+    "reportUnknownMemberType": false,
+    "reportAttributeAccessIssue": false,
+    "reportUnknownVariableType": false,
+    "reportUnknownArgumentType": false, // + PIL
+    // -------------------------------------------------------------------- //
+    "reportUnknownLambdaType": false
+}

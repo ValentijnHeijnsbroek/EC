@@ -1,0 +1,103 @@
+# Assume Python 3.12
+target-version = "py312"
+
+# Exclude a variety of commonly ignored directories.
+exclude = [".venv", ".git", ".typings", "assignments"]
+# Make `exclude` apply even when files are passed explicitly (e.g. by pre-commit,
+# which always passes exact staged filenames rather than a directory).
+force-exclude = true
+
+# Customization of the linter and formatter
+fix = true                # Enable auto-fixes for all rules
+unsafe-fixes = true       # Enable unsafe auto-fixes
+show-fixes = true         # Show fixes in the output
+preview = true            # Allow unstable features
+respect-gitignore = false # Ignore files listed in .gitignore
+
+# Same as Black.
+line-length = 80
+indent-width = 4
+
+[format]
+preview = true
+
+# Like Black, use double quotes for strings.
+quote-style = "double"
+
+# Like Black, indent with spaces, rather than tabs.
+indent-style = "space"
+
+# Like Black, respect magic trailing commas.
+skip-magic-trailing-comma = false
+
+# Mine
+line-ending = "lf"
+
+# Enable auto-formatting of code examples in docstrings.
+docstring-code-format = true
+
+# Set the line length limit used when formatting code snippets in docstrings.
+docstring-code-line-length = "dynamic"
+
+[lint.pycodestyle]
+ignore-overlong-task-comments = true
+max-doc-length = 80
+max-line-length = 80
+
+[lint.pydocstyle]
+convention = "numpy"
+
+[lint]
+select = ["ALL"]
+ignore = [
+    # --- Necessary (avoid conflict) ---
+    "D203",   # one-blank-line-before-class
+    "D212",   # multi-line-summary-first-line
+    "TID252", # relative-imports
+    "ISC001", # single-line-implicit-string-concatenation (--x COM812)
+    # --- Unnecessary (beyond usual scope) ---
+    "CPY001", # Requests copyright notice
+    "TD003",  # Requests issue-link under TODO
+    "INP001", # implicit module __init__ thing
+    "S311", # Cryptographic Purposes, not really needed here
+    # --- Annoying (but useful) ---
+    "PLR2004", # Magic value used in comparison, consider replacing with a constant variable
+    # "F841", # Variable declared but never used
+    # "ANN101",  # Missing type annotation for self in method
+    # "ANN102",  # Missing type annotation for cls in classmethod
+    # "N801",    # Should use CapWords convention
+    # "PLR0913", # Too many arguments for method
+    # "PLR0904", # Too many public methods
+    # "FIX002", # Found "TODO" in code
+    # "ERA001",  # Found commented-out code
+    # "FBT003", # Found "bool" in function argument
+    # "TID252", # relative imports
+    # "D205",   # blank line between summary and description
+    # "T201",   # found print statement
+    # "S301",   # pickle insecure
+    # "S403",   # pickle insecure import
+    # "G004",   # Logging statement uses string formatting
+]
+
+# Allow fix for all enabled rules (when `--fix`) is provided.
+fixable = ["ALL"]
+unfixable = []
+preview = true
+allowed-confusables = []
+task-tags = ["TODO", "WARN", "[ ]", "[~]", "[x]", "[?]", "[!]"]
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+# Allow assertions in tests.
+# Source: https://github.com/astral-sh/ruff/issues/4368#issuecomment-2245567481
+[lint.extend-per-file-ignores]
+"**/tests/**/*.py" = [
+    "S101", # asserts not allowed --> ok in tests
+]
+"*/test_*.py" = [
+    "S101", # asserts not allowed --> ok in tests
+]
+"noxfile.py" = [
+    "S101", # asserts not allowed --> ok in nox config
+]

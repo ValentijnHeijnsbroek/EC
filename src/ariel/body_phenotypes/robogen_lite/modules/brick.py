@@ -1,0 +1,200 @@
+"""TODO(jmdm): description of script.
+
+Todo:
+----
+    [ ] ".rotate" as superclass method?
+"""
+
+# Third-party libraries
+import mujoco
+import numpy as np
+import quaternion as qnp
+
+# Local libraries
+from ariel.body_phenotypes.robogen_lite.config import ModuleFaces, ModuleType
+from ariel.body_phenotypes.robogen_lite.modules.module import Module
+from ariel.parameters.ariel_modules import ArielModulesConfig
+
+# Global functions
+ariel_modules_config = ArielModulesConfig()
+
+
+class BrickModule(Module):
+    """Brick module specifications."""
+
+    index: int | None = None
+    module_type: ModuleType = ModuleType.BRICK
+
+    def __init__(self, index: int) -> None:
+        """Initialize the brick module.
+
+        Parameters
+        ----------
+        index
+            The index of the brick module being instantiated
+        """
+        # Set the index of the module
+        self.index = index
+
+        # Configuration
+        brick_half = ariel_modules_config.BRICK_HALF
+
+        # Create the parent spec.
+        spec = mujoco.MjSpec()
+
+        # Angles in this spec are radians, matching MujocoConfig.degree.
+        # MuJoCo's own default is degrees, and each element keeps the compiler
+        # settings of the spec it was authored in even after being attached
+        # into a world -- so leaving this at the default silently reinterpreted
+        # every angle-valued field (e.g. joint range) as degrees.
+        spec.compiler.degree = False
+
+        # ========= BRICK =========
+        brick_name = self.module_type.name.lower()
+        brick = spec.worldbody.add_body(
+            name=brick_name,
+        )
+        brick.add_geom(
+            name=brick_name,
+            type=mujoco.mjtGeom.mjGEOM_BOX,
+            mass=ariel_modules_config.BRICK_MASS_SI,
+            size=brick_half,
+            # Body origin sits on the back face, so the geom centre is half a
+            # length forward along y. (This read brick_half[0] before, which
+            # only happened to be correct because the brick is a cube.)
+            pos=[0, brick_half[1], 0],
+            rgba=(28 / 255, 119 / 255, 195 / 255, 1),
+        )
+
+        # ========= Attachment Points =========
+        self.sites = {}
+        shift = -1  # mujoco uses xyzw instead of wxyz
+        self.sites[ModuleFaces.FRONT] = brick.add_site(
+            name=f"{brick_name}-front",
+            pos=[0, brick_half[1] * 2, 0],
+            quat=np.round(
+                np.roll(
+                    qnp.as_float_array(
+                        qnp.from_euler_angles([
+                            np.deg2rad(0),
+                            np.deg2rad(180),
+                            np.deg2rad(180),
+                        ]),
+                    ),
+                    shift=shift,
+                ),
+                decimals=3,
+            ),
+        )
+        self.sites[ModuleFaces.LEFT] = brick.add_site(
+            name=f"{brick_name}-left",
+            pos=[
+                -brick_half[0],
+                brick_half[1],
+                0,
+            ],
+            quat=np.round(
+                np.roll(
+                    qnp.as_float_array(
+                        qnp.from_euler_angles([
+                            np.deg2rad(90),
+                            -np.deg2rad(90),
+                            -np.deg2rad(90),
+                        ]),
+                    ),
+                    shift=shift,
+                ),
+                decimals=3,
+            ),
+        )
+        self.sites[ModuleFaces.RIGHT] = brick.add_site(
+            name=f"{brick_name}-right",
+            pos=[
+                brick_half[0],
+                brick_half[1],
+                0,
+            ],
+            quat=np.round(
+                np.roll(
+                    qnp.as_float_array(
+                        qnp.from_euler_angles([
+                            np.deg2rad(90),
+                            np.deg2rad(90),
+                            -np.deg2rad(90),
+                        ]),
+                    ),
+                    shift=shift,
+                ),
+                decimals=3,
+            ),
+        )
+        self.sites[ModuleFaces.TOP] = brick.add_site(
+            name=f"{brick_name}-top",
+            pos=[
+                0,
+                brick_half[1],
+                brick_half[2],
+            ],
+            quat=np.round(
+                np.roll(
+                    qnp.as_float_array(
+                        qnp.from_euler_angles([
+                            np.deg2rad(0),
+                            np.deg2rad(180),
+                            np.deg2rad(90),
+                        ]),
+                    ),
+                    shift=shift,
+                ),
+                decimals=3,
+            ),
+        )
+        self.sites[ModuleFaces.BOTTOM] = brick.add_site(
+            name=f"{brick_name}-bottom",
+            pos=[
+                0,
+                brick_half[1],
+                -brick_half[2],
+            ],
+            quat=np.round(
+                np.roll(
+                    qnp.as_float_array(
+                        qnp.from_euler_angles([
+                            np.deg2rad(0),
+                            np.deg2rad(0),
+                            -np.deg2rad(90),
+                        ]),
+                    ),
+                    shift=shift,
+                ),
+                decimals=3,
+            ),
+        )
+
+        # Save model specifications
+        self.spec = spec
+        self.body = brick
+        self.rotate(angle=0)  # Initialize with no rotation
+
+    def rotate(
+        self,
+        angle: float,
+    ) -> None:
+        """
+        Rotate the brick module by a specified angle.
+
+        Parameters
+        ----------
+        angle : float
+            The angle in degrees to rotate the brick.
+        """
+        # Convert angle to quaternion
+        quat = qnp.from_euler_angles([
+            np.deg2rad(180),
+            -np.deg2rad(180 - angle),
+            np.deg2rad(0),
+        ])
+        quat = np.roll(qnp.as_float_array(quat), shift=-1)
+
+        # Set the quaternion for the brick body
+        self.body.quat = np.round(quat, decimals=3)

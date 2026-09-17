@@ -1,0 +1,4 @@
+variant_a,variant_b,mean_a,mean_b,U,p_value,A12
+point+crossover,point,12.802,14.232,2.0,3.298e-04,0.020
+subtree+crossover,subtree,12.937,13.141,37.0,3.445e-01,0.370
+point+crossover,subtree+crossover,12.802,12.937,41.0,5.202e-01,0.410

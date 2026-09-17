@@ -1,0 +1,22 @@
+== progress during the runs ==
+point+crossover: mean best fitness at generation 0 = 15.34, share of total improvement reached at generation 20 = 79%, median generation of last improvement = 56.0
+point: mean best fitness at generation 0 = 15.34, share of total improvement reached at generation 20 = 96%, median generation of last improvement = 10.5
+subtree+crossover: mean best fitness at generation 0 = 15.34, share of total improvement reached at generation 20 = 78%, median generation of last improvement = 82.5
+subtree: mean best fitness at generation 0 = 15.34, share of total improvement reached at generation 20 = 71%, median generation of last improvement = 74.5
+
+== body size (nodes, core included) ==
+point+crossover: mean population body size gen 0: 11.24, gen 2: 9.96, gen 10: 10.74, gen 50: 12.73, gen 100: 12.38 | mean size of final best body: 13.0
+point: mean population body size gen 0: 11.24, gen 2: 10.18, gen 10: 11.11, gen 50: 10.72, gen 100: 10.79 | mean size of final best body: 10.9
+subtree+crossover: mean population body size gen 0: 11.24, gen 2: 10.16, gen 10: 11.31, gen 50: 12.09, gen 100: 12.33 | mean size of final best body: 13.1
+subtree: mean population body size gen 0: 11.24, gen 2: 10.03, gen 10: 11.54, gen 50: 12.33, gen 100: 12.25 | mean size of final best body: 12.5
+test on mean population body size at generation 100, point vs point+crossover: U = 23.0, p = 4.52e-02
+
+== interaction between crossover and mutation operator ==
+mean benefit of crossover (fitness without - fitness with): point 1.430, subtree 0.204
+Wilcoxon signed-rank test on the per-seed benefits: W = 2.0, p = 5.86e-03
+subtree+crossover minus subtree: difference in means -0.204, bootstrap 95% CI [-0.50, +0.07]
+
+== best body found in these runs ==
+point+crossover, seed 7: f = 12.045, 14 nodes, distances to targets [11.5, 11.5, 12.0, 12.0, 12.0]
+
+number of statistical tests in this analysis: 5

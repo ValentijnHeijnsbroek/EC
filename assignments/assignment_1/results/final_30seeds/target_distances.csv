@@ -1,0 +1,6 @@
+variant,target_00,target_01,target_02,target_03,target_04
+point+crossover,10.30,10.52,11.27,12.30,13.68
+point,8.85,9.83,10.62,12.77,15.18
+subtree+crossover,10.68,11.07,11.27,12.40,13.43
+subtree,10.40,10.83,11.28,12.33,13.38
+random_search,9.85,10.05,11.00,13.42,15.87

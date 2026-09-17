@@ -1,0 +1,52 @@
+{
+	"name": "Ariel",
+	"image": "mcr.microsoft.com/devcontainers/base:noble",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"streetsidesoftware.code-spell-checker",
+				"ms-vscode-remote.remote-containers",
+				"PeterSchmalfeldt.explorer-exclude",
+				"PKief.material-icon-theme",
+				"njpwerner.autodocstring",
+				"edwinhuish.better-comments-next",
+				"ms-azuretools.vscode-containers",
+				"ms-python.python",
+				"ms-python.debugpy",
+				"KevinRose.vsc-python-indent",
+				"mgesbert.python-path",
+				"littlefoxteam.vscode-python-test-adapter",
+				"seanwu.vscode-qt-for-python",
+				"charliermarsh.ruff",
+				"hbenl.vscode-test-explorer",
+				"matangover.mypy",
+				"liamrwilkins.mypy-ini-intellisense",
+				"ms-python.vscode-pylance",
+				"ms-python.vscode-python-envs",
+				"usernamehw.errorlens",
+				"tamasfe.even-better-toml",
+				"ms-python.isort",
+				"yzhang.markdown-all-in-one",
+				"qwtel.sqlite-viewer"
+			]
+		}
+	},
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils": {
+			"installZsh": true,
+			"installOhMyZsh": true,
+			"installOhMyZshConfig": true,
+			"configureZshAsDefaultShell": true
+		}
+	},
+	"remoteUser": "vscode",
+	"mounts": [
+		// "type=bind,source=${localEnv:HOME}/.ssh,target=/vscode/.ssh,readonly"
+	],
+	"containerEnv": {
+		"PYTHONDONTWRITEBYTECODE": "True",
+		"PYTHONUNBUFFERED": "True",
+		"UV_LINK_MODE": "copy"
+	},
+	"postCreateCommand": "zsh .devcontainer/scripts/postCreateCommand.sh"
+}

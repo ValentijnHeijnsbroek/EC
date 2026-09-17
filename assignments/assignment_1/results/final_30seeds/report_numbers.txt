@@ -1,0 +1,31 @@
+== progress during the runs ==
+point+crossover: mean best fitness at generation 0 = 15.46, share of total improvement reached at generation 20 = 77%, median generation of last improvement = 76.0
+point: mean best fitness at generation 0 = 15.46, share of total improvement reached at generation 20 = 89%, median generation of last improvement = 34.0
+subtree+crossover: mean best fitness at generation 0 = 15.46, share of total improvement reached at generation 20 = 69%, median generation of last improvement = 76.5
+subtree: mean best fitness at generation 0 = 15.46, share of total improvement reached at generation 20 = 73%, median generation of last improvement = 70.5
+random_search: mean best fitness at generation 0 = 15.46, share of total improvement reached at generation 20 = 66%, median generation of last improvement = 62.5
+
+== body size (nodes, core included) ==
+point+crossover: mean population body size gen 0: 11.60, gen 2: 8.92, gen 10: 9.76, gen 50: 10.95, gen 100: 11.16 | mean size of final best body: 12.5
+point: mean population body size gen 0: 11.60, gen 2: 9.01, gen 10: 9.70, gen 50: 9.61, gen 100: 9.63 | mean size of final best body: 10.4
+subtree+crossover: mean population body size gen 0: 11.60, gen 2: 9.06, gen 10: 10.09, gen 50: 10.85, gen 100: 11.02 | mean size of final best body: 12.9
+subtree: mean population body size gen 0: 11.60, gen 2: 9.09, gen 10: 10.30, gen 50: 11.21, gen 100: 11.29 | mean size of final best body: 12.9
+test on mean population body size at generation 100, point vs point+crossover: U = 177.0, p = 5.59e-05
+
+== interaction between crossover and mutation operator ==
+mean benefit of crossover (fitness without - fitness with): point 0.827, subtree -0.085
+Wilcoxon signed-rank test on the per-seed benefits: W = 29.0, p = 3.24e-06
+subtree+crossover minus subtree: difference in means +0.085, bootstrap 95% CI [-0.12, +0.29]
+
+== best body found in these runs ==
+subtree, seed 26: f = 12.048, 14 nodes, distances to targets [11.0, 11.5, 11.0, 11.5, 12.5]
+
+number of statistical tests in this analysis: 9
+
+== target set ==
+target sizes (nodes): [7, 11, 15, 19, 25]
+pairwise target distances: min 8.5, max 22.0, mean 15.75
+fitness of each target when used as a solution: [18.13, 17.34, 18.05, 20.23, 24.68] (best 17.34)
+size-based reference value (lower bound from body size only): f >= 8.51, reached for n = [16] nodes
+mean fitness of 150 random bodies per size (nodes: fitness): 3: 18.76, 6: 17.11, 9: 16.76, 12: 17.00, 15: 17.99, 18: 19.20, 21: 20.93
+random bodies score best on average at [8, 9, 10] nodes

@@ -1,0 +1,5 @@
+variant,target_00,target_01,target_02,target_03,target_04
+point+crossover,10.45,10.60,11.30,12.25,13.45
+point,8.55,9.75,10.90,13.00,15.75
+subtree+crossover,10.30,10.45,11.20,12.65,13.45
+subtree,9.80,10.30,11.25,12.45,13.90

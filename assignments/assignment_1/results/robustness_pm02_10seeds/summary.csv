@@ -1,0 +1,5 @@
+variant,runs,mean_final_best,std_final_best,median,min,max,mean_mu,mean_sigma,mean_best_modules
+point+crossover,10,12.802,0.466,12.746,12.045,13.478,11.610,1.192,13.0
+point,10,14.232,0.599,14.314,13.255,15.087,11.590,2.642,10.9
+subtree+crossover,10,12.937,0.415,12.933,12.183,13.517,11.610,1.327,13.1
+subtree,10,13.141,0.232,13.157,12.822,13.606,11.540,1.601,12.5

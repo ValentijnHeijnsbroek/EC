@@ -1,0 +1,8 @@
+variant_a,variant_b,mean_a,mean_b,U,p_value,A12
+point+crossover,point,12.986,13.813,78.0,3.954e-08,0.087
+subtree+crossover,subtree,12.914,12.830,490.5,5.542e-01,0.545
+point+crossover,random_search,12.986,14.438,0.0,3.009e-11,0.000
+point,random_search,13.813,14.438,135.0,3.324e-06,0.150
+subtree+crossover,random_search,12.914,14.438,0.0,3.018e-11,0.000
+subtree,random_search,12.830,14.438,0.0,3.016e-11,0.000
+point+crossover,subtree+crossover,12.986,12.914,517.0,3.255e-01,0.574
